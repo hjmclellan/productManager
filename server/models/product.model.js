@@ -1,36 +1,21 @@
 const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
-    //title, price, descriptions, timestamps
     title: {
         type: String,
         required: [true, "must include a title"],
-        validate: {
-            validator: (input) => {
-                return input.length >= 3;
-            },
-            message: (input) => `${input.value} must be at least 3 characters!`
-        }
+        maxLength: [25, "You're doin too much, shorten it to 25 characters or less"],
+        minLength: [3, "You must be at least THIS (3 characters) tall to ride this ride"]
     },
     price: {
         type: Number,
-        required: [true, "must include price"],
-        validate: {
-            validator: (input) => {
-                return input >= 0;
-            },
-            message: (input) => `${input.value} must be greater than 0`
-        }
+        required: [true, "Gotta cost Something."],
     },
     description: {
         type: String,
-        required: [true, "must include a description"],
-        validate: {
-            validator: (input) => {
-                return input.length >= 3;
-            },
-            message: (input) => `${input.value} must be at least 3 characters!`
-        }
+        required: [true, "Can't leave it blank"],
+        maxLength: [200, "You're doin too much, shorten it to 200 characters or less"],
+        minLength: [10, "Way too short, bump that up to 10 characters or more fam"]
     }
 })
 
